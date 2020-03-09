@@ -1,0 +1,17 @@
+{
+  "name": "channel-overlay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "comfy.js",
+  "scripts": {
+    "dev": "parcel src/*",
+    "build": "parcel build src/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "comfy.js": "^1.0.15",
+    "dotenv": "^8.2.0"
+  }
+}

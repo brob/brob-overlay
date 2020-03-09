@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay</title>
+    <script src="./app.js"></script>
+</head>
+<body>
+    <style>
+        html {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 400;
+        }
+        h1, h2, h3, h4, h5 {
+            font-weight: 300;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+        }
+        .alert-area {
+            position: absolute;
+            right: 0;
+            bottom: 260px;
+            background-image: linear-gradient(120deg,#D63E3E,#E5AF20, #C5D31E, #35C42F, #38D1D1, #415CCB, #923FC7, #C329AF);
+            opacity: 0;
+            transition: .5s;
+
+            width: 425px;
+
+            background-color: white;
+            padding: 1rem;
+
+
+
+        }
+        .alert-area * {
+            position: relative;
+        }
+        .alert-area h1 {
+            font-size: 1.75rem;
+        }
+        .alert-area h2 {
+            font-size: 2rem;
+        }
+        .alert-area p {
+            font-size: 1.25rem;
+        }
+
+
+
+
+        .alert-area.active {
+            opacity: 1;
+        }
+        .alert-area::before {
+            content: "";
+            background-color:rgba(255, 255, 255, .85);
+            display: block;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+        }
+
+    </style>
+
+
+
+    <div id="soapbox" class="alert-area">
+        <h1></h1>
+        <p></p>
+        <audio src="./fairy-chime.mp3"></audio>
+    </div>
+    <div id="JAM" class="alert-area">
+        <h1></h1>
+        <p></p>
+        <audio src="./fairy-chime.mp3"></audio>
+    </div>
+
+
+    
+    
+    <script>
+
+    </script>
+
+</body>
+</html>
