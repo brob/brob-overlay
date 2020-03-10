@@ -1,5 +1,8 @@
 var ComfyJS = require("comfy.js");
 
+const alertElement = document.querySelector('.alert-area');
+const pushList = []
+
 const soapboxes = [
     "CSS gets no respect",
     "Rule of Least power",
@@ -24,64 +27,70 @@ const musicStations = [
     "Synthwave"
 ]
 
+
+
 const stationsString = musicStations.join(', ');
 
-function toggleRant(user, message) {
-    let audioPlay = document.querySelector('#soapbox audio');
-    
-    let randomRant = soapboxes[Math.floor(Math.random()*soapboxes.length)];
-                
-    document.querySelector('#soapbox h1').innerHTML = `${user} wants a rant! <br> Random Topic: <em>${randomRant}</em>`;
-    document.querySelector('#soapbox p').innerHTML = `<strong>${user} said:</strong> ${message}`;
-    
-    
-    document.querySelector('#soapbox').classList.add('active');
-
-
-    audioPlay.volume = 0.2;
-    audioPlay.play();
-
-
-    setTimeout(function() {
-        document.querySelector('#soapbox').classList.remove('active');
-    }, 5000)
+function randomRant() {
+    return soapboxes[Math.floor(Math.random()*soapboxes.length)];
 
 }
 
-function toggleJAM(user, message) {
-    let audioPlay = document.querySelector('#JAM audio');
-    
-    document.querySelector('#JAM h1').innerHTML = `${user} wants to change song!`;
-    document.querySelector('#JAM p').innerHTML = `<strong>${user} said:</strong> ${message}`;
-    
-    document.querySelector('#JAM').classList.add('active');
+function composeScreen(user, headline, message, type) {
 
-    ComfyJS.Say(`Hey, @${user}! Be sure to tell Bryan what sort of music you want! Choose from these: ${stationsString}`);
-
-
-    audioPlay.volume = 0.2;
-    audioPlay.play();
-
-    setTimeout(function() {
-        document.querySelector('#JAM').classList.remove('active');
-    }, 5000)
-
+    pushList.push({
+        'html': `
+        <div id="${type}">
+            <h1>${headline}</h1>
+            <p>${message}</p>
+            <audio src="./fairy-chime.mp3" preload="auto"></audio>
+        </div>
+        `,
+        'type': type
+    });
 }
 
+function render() {
+    while (pushList.length > 0 && alertIsReady()) {
+        alertElement.innerHTML = pushList[0].html;
 
+        let audioPlay = alertElement.querySelector('audio');
+        audioPlay.volume = 0.2;
+        audioPlay.play();
 
+        alertElement.classList.add('active');
+        
+        setTimeout(function() {
+            pushList.splice(0, 1);
+            console.log(pushList);
+            alertElement.classList.remove('active');
+
+            setTimeout(function() {
+                render(); // Waits for animation of last use
+            }, 1000)
+        }, 5000)
+    }
+}
+
+function alertIsReady() {
+    return !alertElement.classList.contains('active')
+}
 
 
 ComfyJS.onChat = ( user, message, flags, self, extra ) => {
-
-
     if (flags.customReward) {
+        console.log(message);
         switch (extra.customRewardId) {
             case "9f031da9-695f-44af-964d-127205d267a4":            
-                toggleRant(user, message);
+                composeScreen(user, `${user} wants a rant! <br> Random Topic: <em>${randomRant()}</em>`, `<strong>${user} said:</strong> ${message}`, 'soapbox');
+                render();
                 break;
             case "10478acd-5368-4b69-a668-2655874b8e2c":
-                toggleJAM(user, message);
+                composeScreen(user, `${user} wants to change song!`, `<strong>${user} said:</strong> ${message}`, 'JAM');
+                ComfyJS.Say(`Hey, @${user}! Be sure to tell Bryan what sort of music you want! Choose from these: ${stationsString}`)
+                render();
+                break;
+
             default:
                 break;
         }
