@@ -1,0 +1,113 @@
+:root {
+    --border-size: 10;
+    --border-color: black;
+}
+.overlay {
+    width: 1920px;
+    height: 1080px;
+    display: grid;
+    grid-template:  '.   .     .      .     . ' 20px
+                    '.  video video  chat   . ' 480px
+                    '.  video video  alert  . ' 230px
+                    '.  .     second second . ' 240px
+                    '.  title second second . ' 1fr 
+                    '.   .      .     .     . ' 20px /
+                     20px 1400px .5fr  1fr  20px;
+    /* border: var(--border); */
+    box-sizing: border-box;
+    
+}
+
+
+.gradient {
+    --gradient-direction: 0deg;
+    background-image: linear-gradient(var(--gradient-direction) ,#D63E3E,#E5AF20, #C5D31E, #35C42F, #38D1D1, #415CCB, #923FC7, #C329AF);
+    background-color: red;
+}
+
+.left-bar {
+    grid-row: 1 / -1;
+    grid-column: 1 ;
+}
+.right-bar {
+    grid-row: 1 / -1;
+    grid-column: -1 / -2;
+    --gradient-direction: 180deg;
+}
+.top-bar {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    --gradient-direction: -90deg;
+}
+.bottom-bar {
+    grid-row: -1 / -2;
+    grid-column: 1 / -1;
+    --gradient-direction: 90deg;
+}
+
+.right-column {
+    grid-column: 4;
+}
+.bar {
+    background-color: white;
+}
+
+.video {
+   grid-area: video;
+}
+img {
+    width: 70%;
+}
+.pixel {
+    grid-area: alert;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+}
+.pixel .alert {
+    position: absolute;
+    right: 40%;
+    bottom: 70%;
+    width: 500px;
+    min-height: 100px;
+    opacity: 0;
+    padding-bottom: 50px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 75% 85%, 75% 100%, 60% 85%, 0% 85%);
+}
+
+.top-border {
+    border-top:var(--border);
+}
+.right-column {
+
+    --border-size: 20;
+    border-left: var(--border);
+
+}
+
+.title {
+    grid-area: title;
+    background-color: var(--border-color);
+    clip-path: polygon(0 0, 90% 0%, 100% 100%, 0% 100%);
+
+}
+.chat {
+    grid-area: chat;
+}
+.secondary {
+    grid-area: second;
+}
+
+.titlebar {
+    background-color: var(--border-color);
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+
+}
+
+.bordered {
+    --border: calc(var(--border-size) * 1px) solid var(--border-color);
+
+}
