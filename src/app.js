@@ -74,7 +74,7 @@ function render() {
 
             setTimeout(function() {
                 render(); // Waits for animation of last use
-            }, 1000)
+            }, 2000)
         }, 5000)
     }
 }
@@ -86,7 +86,7 @@ function alertIsReady() {
 
 ComfyJS.onChat = ( user, message, flags, self, extra ) => {
     if (flags.customReward) {
-        console.log(message);
+
         switch (extra.customRewardId) {
             case "9f031da9-695f-44af-964d-127205d267a4":            
                 composeScreen(user, `${user} fed me! <br> Give them a rant! <br> Random Topic: <em>${randomRant()}</em>`, `<strong>${user} said:</strong> ${message}`, 'soapbox');
@@ -100,6 +100,7 @@ ComfyJS.onChat = ( user, message, flags, self, extra ) => {
             case "778065cd-9ece-4927-9d8a-6418d87f49a5":
                 composeScreen(user, `${user} fed me and wants me to tell EVERYONE a message!`, `<strong>${user} said:</strong> ${message}`, 'pixelSays', false);
                 pixelSpeaks(message);
+                console.log('run through pixel message');
                 render();
                 break;
             case "8d6b3c92-2445-4137-9f22-b318333ea260":
@@ -142,18 +143,15 @@ function renderTitle(data) {
     titleElement.innerHTML = data.title
 }
 
-
-
-
-
-
 function pixelSpeaks(words) {
+    console.log(words);
     var utter = new SpeechSynthesisUtterance();
 	utter.rate = 1.0;
     utter.pitch = 1.8;
     utter.volume = 0.2;
 	utter.text = words;
 
-	window.speechSynthesis.speak(utter);
+    window.speechSynthesis.speak(utter);   
 }
+
 
