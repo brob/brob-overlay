@@ -86,7 +86,7 @@ function alertIsReady() {
 
 ComfyJS.onChat = ( user, message, flags, self, extra ) => {
     if (flags.customReward) {
-
+        console.dir(extra.messageEmotes);
         switch (extra.customRewardId) {
             case "9f031da9-695f-44af-964d-127205d267a4":            
                 composeScreen(user, `${user} fed me! <br> Give them a rant! <br> Random Topic: <em>${randomRant()}</em>`, `<strong>${user} said:</strong> ${message}`, 'soapbox');
