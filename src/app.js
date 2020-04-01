@@ -129,12 +129,16 @@ async function getTwitchContent()  {
     const response = await fetch(request);
     const json = await response.json();
     console.log(json)
-    if (json.data) renderTitle(json.data[0])
+    DomReady.ready(function() { 
+        if (json.data) renderTitle(json.data[0])
+    })
+
 
 }
+document.addEventListener("DOMContentLoaded", function() {
+    getTwitchContent();
+})
 
-const data = getTwitchContent();
-console.log(data.title);
 
 
 function renderTitle(data) {
