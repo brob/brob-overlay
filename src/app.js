@@ -129,9 +129,7 @@ async function getTwitchContent()  {
     const response = await fetch(request);
     const json = await response.json();
     console.log(json)
-    DomReady.ready(function() { 
-        if (json.data) renderTitle(json.data[0])
-    })
+    if (json.data) renderTitle(json.data[0])
 
 
 }
